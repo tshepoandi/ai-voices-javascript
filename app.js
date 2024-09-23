@@ -74,13 +74,16 @@ async function main() {
 
   try {
     // List voices
-    const voices = await api.listVoices().map((voice) => ({
-      voice_id: voice.voice_id,
-      name: voice.name,
-      description: voice.description,
-      labels: voice.labels,
-    }))
-    console.log('Available voices:', voices)
+    const voices = await api.listVoices()
+    console.log(
+      'Available voices:',
+      voices.map((voice) => ({
+        voice_id: voice.voice_id,
+        name: voice.name,
+        description: voice.description,
+        labels: voice.labels,
+      })),
+    )
 
     const motivation =
       "Today, I want to remind you of something powerful: you are capable of more than you can imagine. Every challenge, every obstacle, every moment of doubt is not a barrier—it's an opportunity. An opportunity to rise, to grow, to evolve into the person you're meant to be."
