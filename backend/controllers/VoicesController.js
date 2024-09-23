@@ -1,8 +1,9 @@
-import { ElevenLabsAPI } from '../ ElevenLabsAPI'
-
+import ElevenLabsAPI from '../utils/ElevenLabsClass.js'
 class ElevenLabsController {
   constructor() {
     this.elevenLabsAPI = new ElevenLabsAPI()
+    this.getVoices = this.getVoices.bind(this)
+    this.createTextToSpeech = this.createTextToSpeech.bind(this)
   }
 
   async getVoices(req, res) {

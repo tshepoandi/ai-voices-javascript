@@ -1,5 +1,5 @@
 import express from 'express'
-import ElevenLabsController from '../controllers/VoicesController'
+import ElevenLabsController from '../controllers/VoicesController.js'
 
 const router = express.Router()
 const elevenLabsController = new ElevenLabsController()
