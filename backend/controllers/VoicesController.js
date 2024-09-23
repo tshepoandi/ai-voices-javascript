@@ -9,7 +9,14 @@ class ElevenLabsController {
   async getVoices(req, res) {
     try {
       const voices = await this.elevenLabsAPI.listVoices()
-      res.json(voices)
+      res.json(
+        voices.map((voice) => ({
+          voice_id: voice.voice_id,
+          name: voice.name,
+          description: voice.description,
+          labels: voice.labels,
+        })),
+      )
     } catch (error) {
       console.error('Error in getVoices:', error.message)
       res.status(500).json({ error: 'Failed to fetch voices' })
