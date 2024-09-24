@@ -1,5 +1,6 @@
 import styled from 'styled-components'
-import mockData from '../MockData/songs.json'
+import { useState, useEffect } from 'react'
+import axios from 'axios'
 
 const GridContainer = styled.div`
   display: grid;
@@ -39,17 +40,129 @@ const Artist = styled.p`
   margin: 0;
 `
 
+const MenuContainer = styled.div`
+  background-color: #000; /* black background */
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`
+
+const AppName = styled.h1`
+  color: #34c759; /* green text */
+  font-size: 1.5rem;
+  margin: 0;
+`
+
+const SearchContainer = styled.div`
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+  justify-content: center;
+  margin: 0 1rem;
+`
+
+const SearchForm = styled.form`
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 300px;
+`
+
+const SearchBar = styled.input`
+  background-color: #000; /* black background */
+  border: 1px solid #fff; /* white line */
+  border-radius: 20px; /* fully rounded */
+  padding: 0.5rem 2.5rem 0.5rem 1rem;
+  font-size: 1rem;
+  color: #34c759; /* green text */
+  width: 100%;
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px #34c759;
+  }
+  &::placeholder {
+    color: #34c759; /* green placeholder text */
+    opacity: 0.7;
+  }
+`
+
+const SearchButton = styled.button`
+  background-color: transparent; /* transparent background */
+  border: none;
+  padding: 0.5rem;
+  font-size: 1rem;
+  color: #34c759; /* green text */
+  cursor: pointer;
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  &:hover {
+    color: #2aa147; /* darker green on hover */
+  }
+`
+
 const SearchResultsGrid = () => {
+  const [searchData, setSearchData] = useState([])
+  const [searchTerm, setSearchTerm] = useState('')
+  const [inputValue, setInputValue] = useState('')
+
+  const handleInputChange = (event) => {
+    setInputValue(event.target.value)
+  }
+
+  const handleSubmit = (event) => {
+    event.preventDefault()
+    setSearchTerm(inputValue)
+  }
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.post(
+          'https://ai-voices-javascript.onrender.com/genius/search',
+          {
+            search: searchTerm,
+          },
+        )
+        setSearchData(response.data)
+      } catch (error) {
+        console.error('Error fetching data: ', error)
+      }
+    }
+
+    if (searchTerm) {
+      fetchData()
+    }
+  }, [searchTerm])
+
   return (
-    <GridContainer>
-      {mockData.map((item) => (
-        <GridItem key={item.id}>
-          <Thumbnail src={item.thumbnail} alt={item.title} />
-          <Title>{item.title}</Title>
-          <Artist>{item.artist}</Artist>
-        </GridItem>
-      ))}
-    </GridContainer>
+    <div>
+      <MenuContainer>
+        <AppName>shakira</AppName>
+        <SearchContainer>
+          <SearchForm onSubmit={handleSubmit}>
+            <SearchBar
+              type="search"
+              placeholder="Search..."
+              value={inputValue}
+              onChange={handleInputChange}
+            />
+            <SearchButton type="submit">Search</SearchButton>
+          </SearchForm>
+        </SearchContainer>
+      </MenuContainer>
+      <GridContainer>
+        {searchData.map((item) => (
+          <GridItem key={item.id}>
+            <Thumbnail src={item.thumbnail} alt={item.title} />
+            <Title>{item.title}</Title>
+            <Artist>{item.artist}</Artist>
+          </GridItem>
+        ))}
+      </GridContainer>
+    </div>
   )
 }
 

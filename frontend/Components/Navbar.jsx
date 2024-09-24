@@ -1,4 +1,6 @@
+import React, { useState } from 'react'
 import styled from 'styled-components'
+import axios from 'axios'
 
 const MenuContainer = styled.div`
   background-color: #000; /* black background */
@@ -23,9 +25,9 @@ const SearchContainer = styled.div`
 `
 
 const SearchBar = styled.input`
-  background-color: #333; /* dark grey background */
-  border: none;
-  border-radius: 20px 0 0 20px; /* rounded left side */
+  background-color: #000; /* black background */
+  border: 1px solid #fff; /* white line */
+  border-radius: 20px; /* fully rounded */
   padding: 0.5rem 1rem;
   font-size: 1rem;
   color: #34c759; /* green text */
@@ -34,28 +36,65 @@ const SearchBar = styled.input`
     outline: none;
     box-shadow: 0 0 0 2px #34c759;
   }
+  &::placeholder {
+    color: #34c759; /* green placeholder text */
+    opacity: 0.7;
+  }
 `
 
 const SearchButton = styled.button`
-  background-color: #34c759; /* green background */
+  background-color: transparent; /* transparent background */
   border: none;
-  border-radius: 0 20px 20px 0; /* rounded right side */
   padding: 0.5rem 1rem;
   font-size: 1rem;
-  color: #000; /* black text */
+  color: #34c759; /* green text */
   cursor: pointer;
+  position: absolute;
+  right: 5px;
   &:hover {
-    background-color: #2aa147; /* darker green on hover */
+    color: #2aa147; /* darker green on hover */
   }
 `
 
 const Menu = () => {
+  const [searchText, setSearchText] = useState('')
+
+  const handleSearchChange = (event) => {
+    setSearchText(event.target.value)
+  }
+
+  const handleSearchSubmit = async (event) => {
+    event.preventDefault()
+    try {
+      const response = await axios.post('/genius', { searchText })
+      console.log('Search response:', response.data)
+      // Handle the response as needed
+    } catch (error) {
+      console.error('Error during search:', error)
+      // Handle the error as needed
+    }
+  }
+
   return (
     <MenuContainer>
       <AppName>shakira</AppName>
       <SearchContainer>
-        <SearchBar type="search" placeholder="Search..." />
-        <SearchButton>Search</SearchButton>
+        <form
+          onSubmit={handleSearchSubmit}
+          style={{
+            position: 'relative',
+            display: 'flex',
+            alignItems: 'center',
+          }}
+        >
+          <SearchBar
+            type="search"
+            placeholder="Search..."
+            value={searchText}
+            // onChange={handleSearchChange}
+          />
+          <SearchButton type="submit">Search</SearchButton>
+        </form>
       </SearchContainer>
     </MenuContainer>
   )
