@@ -1,0 +1,255 @@
+[
+  {
+    "voice_id": "9BWtsMINqrJLrRacOk9x",
+    "name": "Aria",
+    "description": null,
+    "labels": {
+      "accent": "American",
+      "description": "expressive",
+      "age": "middle-aged",
+      "gender": "female",
+      "use_case": "social media"
+    }
+  },
+  {
+    "voice_id": "CwhRBWXzGAHq8TQ4Fs17",
+    "name": "Roger",
+    "description": null,
+    "labels": {
+      "accent": "American",
+      "description": "confident",
+      "age": "middle-aged",
+      "gender": "male",
+      "use_case": "social media"
+    }
+  },
+  {
+    "voice_id": "EXAVITQu4vr4xnSDxMaL",
+    "name": "Sarah",
+    "description": null,
+    "labels": {
+      "accent": "american",
+      "description": "soft",
+      "age": "young",
+      "gender": "female",
+      "use_case": "news"
+    }
+  },
+  {
+    "voice_id": "FGY2WhTYpPnrIDTdsKH5",
+    "name": "Laura",
+    "description": null,
+    "labels": {
+      "accent": "American",
+      "description": "upbeat",
+      "age": "young",
+      "gender": "female",
+      "use_case": "social media"
+    }
+  },
+  {
+    "voice_id": "IKne3meq5aSn9XLyUdCD",
+    "name": "Charlie",
+    "description": null,
+    "labels": {
+      "accent": "Australian",
+      "description": "natural",
+      "age": "middle aged",
+      "gender": "male",
+      "use_case": "conversational"
+    }
+  },
+  {
+    "voice_id": "JBFqnCBsd6RMkjVDRZzb",
+    "name": "George",
+    "description": null,
+    "labels": {
+      "accent": "British",
+      "description": "warm",
+      "age": "middle aged",
+      "gender": "male",
+      "use_case": "narration"
+    }
+  },
+  {
+    "voice_id": "N2lVS1w4EtoT3dr4eOWO",
+    "name": "Callum",
+    "description": null,
+    "labels": {
+      "accent": "Transatlantic",
+      "description": "intense",
+      "age": "middle-aged",
+      "gender": "male",
+      "use_case": "characters"
+    }
+  },
+  {
+    "voice_id": "SAz9YHcvj6GT2YYXdXww",
+    "name": "River",
+    "description": null,
+    "labels": {
+      "accent": "American",
+      "description": "confident",
+      "age": "middle-aged",
+      "gender": "non-binary",
+      "use_case": "social media"
+    }
+  },
+  {
+    "voice_id": "TX3LPaxmHKxFdv7VOQHJ",
+    "name": "Liam",
+    "description": null,
+    "labels": {
+      "accent": "American",
+      "description": "articulate",
+      "age": "young",
+      "gender": "male",
+      "use_case": "narration"
+    }
+  },
+  {
+    "voice_id": "XB0fDUnXU5powFXDhCwa",
+    "name": "Charlotte",
+    "description": null,
+    "labels": {
+      "accent": "Swedish",
+      "description": "seductive",
+      "age": "young",
+      "gender": "female",
+      "use_case": "characters"
+    }
+  },
+  {
+    "voice_id": "Xb7hH8MSUJpSbSDYk0k2",
+    "name": "Alice",
+    "description": null,
+    "labels": {
+      "accent": "British",
+      "description": "confident",
+      "age": "middle-aged",
+      "gender": "female",
+      "use_case": "news"
+    }
+  },
+  {
+    "voice_id": "XrExE9yKIg1WjnnlVkGX",
+    "name": "Matilda",
+    "description": null,
+    "labels": {
+      "accent": "American",
+      "description": "friendly",
+      "age": "middle-aged",
+      "gender": "female",
+      "use_case": "narration"
+    }
+  },
+  {
+    "voice_id": "bIHbv24MWmeRgasZH58o",
+    "name": "Will",
+    "description": null,
+    "labels": {
+      "accent": "American",
+      "description": "friendly",
+      "age": "young",
+      "gender": "male",
+      "use_case": "social media"
+    }
+  },
+  {
+    "voice_id": "cgSgspJ2msm6clMCkdW9",
+    "name": "Jessica",
+    "description": null,
+    "labels": {
+      "accent": "American",
+      "description": "expressive",
+      "age": "young",
+      "gender": "female",
+      "use_case": "conversational"
+    }
+  },
+  {
+    "voice_id": "cjVigY5qzO86Huf0OWal",
+    "name": "Eric",
+    "description": null,
+    "labels": {
+      "accent": "American",
+      "description": "friendly",
+      "age": "middle-aged",
+      "gender": "male",
+      "use_case": "conversational"
+    }
+  },
+  {
+    "voice_id": "iP95p4xoKVk53GoZ742B",
+    "name": "Chris",
+    "description": null,
+    "labels": {
+      "accent": "American",
+      "description": "casual",
+      "age": "middle-aged",
+      "gender": "male",
+      "use_case": "conversational"
+    }
+  },
+  {
+    "voice_id": "nPczCjzI2devNBz1zQrb",
+    "name": "Brian",
+    "description": null,
+    "labels": {
+      "accent": "American",
+      "description": "deep",
+      "age": "middle-aged",
+      "gender": "male",
+      "use_case": "narration"
+    }
+  },
+  {
+    "voice_id": "onwK4e9ZLuTAKqWW03F9",
+    "name": "Daniel",
+    "description": null,
+    "labels": {
+      "accent": "British",
+      "description": "authoritative",
+      "age": "middle-aged",
+      "gender": "male",
+      "use_case": "news"
+    }
+  },
+  {
+    "voice_id": "pFZP5JQG7iQjIQuC4Bku",
+    "name": "Lily",
+    "description": null,
+    "labels": {
+      "accent": "British",
+      "description": "warm",
+      "age": "middle-aged",
+      "gender": "female",
+      "use_case": "narration"
+    }
+  },
+  {
+    "voice_id": "pqHfZKP75CvOlQylNhV4",
+    "name": "Bill",
+    "description": null,
+    "labels": {
+      "accent": "American",
+      "description": "trustworthy",
+      "age": "old",
+      "gender": "male",
+      "use_case": "narration"
+    }
+  },
+  {
+    "voice_id": "84Fal4DSXWfp7nJ8emqQ",
+    "name": "Motivational Coach - Leader",
+    "description": "Middle aged American confident male voice. Perfect for Motivational videos.",
+    "labels": {
+      "language": "en",
+      "descriptive": "deep",
+      "accent": "american",
+      "gender": "male",
+      "age": "middle_aged",
+      "use_case": "social_media"
+    }
+  }
+]
