@@ -1,52 +1,133 @@
-// import React from 'react'
+// import React from 'react';
+import styled from 'styled-components'
 import voices from '../MockData/voices.json'
+
+const SidebarContainer = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 280px;
+  overflow-y: auto;
+  background-color: black;
+  padding: 1rem;
+  color: #22c55e;
+`
+
+const Title = styled.h2`
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+`
+
+const VoiceList = styled.ul`
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+`
+
+const VoiceItem = styled.li`
+  border: 1px solid #22c55e;
+  border-radius: 0.5rem;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: #064e3b;
+  }
+`
+
+const VoiceContent = styled.div`
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+`
+
+const Avatar = styled.div`
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background-color: #22c55e;
+  color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+`
+
+const VoiceInfo = styled.div`
+  flex: 1;
+`
+
+const VoiceHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.25rem;
+`
+
+const VoiceName = styled.span`
+  font-size: 1.125rem;
+  font-weight: bold;
+`
+
+const AccentTag = styled.span`
+  font-size: 0.75rem;
+  background-color: #064e3b;
+  color: #4ade80;
+  padding: 0.25rem 0.5rem;
+  border-radius: 9999px;
+`
+
+const Description = styled.p`
+  font-size: 0.875rem;
+  color: #4ade80;
+  margin-bottom: 0.5rem;
+`
+
+const TagContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+`
+
+const Tag = styled.span`
+  font-size: 0.75rem;
+  background-color: #064e3b;
+  color: #4ade80;
+  padding: 0.25rem 0.5rem;
+  border-radius: 9999px;
+`
 
 const Sidebar = () => {
   return (
-    <div className="fixed top-0 left-0 h-screen w-90 overflow-y-auto bg-black p-4">
-      <h2 className="text-lg font-bold mb-4 text-green-500">Voices</h2>
-      <ul className="space-y-4">
+    <SidebarContainer>
+      <Title>Voices</Title>
+      <VoiceList>
         {voices.map((voice) => (
-          <li
-            key={voice.voice_id}
-            className="border border-green-500 rounded-lg p-3 hover:bg-green-900 transition-colors duration-300"
-          >
-            <div className="flex items-start space-x-3">
-              <div className="w-10 h-10 rounded-full bg-green-500 flex items-center justify-center text-black font-bold">
-                {voice.name.charAt(0)}
-              </div>
-              <div className="flex-1">
-                <div className="flex items-center justify-between">
-                  <span className="text-lg font-bold text-green-500">
-                    {voice.name}
-                  </span>
-                  <span className="text-xs bg-green-900 text-green-300 px-2 py-1 rounded-full">
-                    {voice.labels.accent}
-                  </span>
-                </div>
-                <p className="text-sm text-green-300 mt-1">
-                  {voice.labels.description}
-                </p>
-                <div className="flex flex-wrap gap-1 mt-2">
+          <VoiceItem key={voice.voice_id}>
+            <VoiceContent>
+              <Avatar>{voice.name.charAt(0)}</Avatar>
+              <VoiceInfo>
+                <VoiceHeader>
+                  <VoiceName>{voice.name}</VoiceName>
+                  <AccentTag>{voice.labels.accent}</AccentTag>
+                </VoiceHeader>
+                <Description>{voice.labels.description}</Description>
+                <TagContainer>
                   {Object.entries(voice.labels).map(
                     ([key, value]) =>
                       key !== 'accent' &&
-                      key !== 'description' && (
-                        <span
-                          key={key}
-                          className="text-xs bg-green-900 text-green-300 px-2 py-1 rounded-full"
-                        >
-                          {value}
-                        </span>
-                      ),
+                      key !== 'description' && <Tag key={key}>{value}</Tag>,
                   )}
-                </div>
-              </div>
-            </div>
-          </li>
+                </TagContainer>
+              </VoiceInfo>
+            </VoiceContent>
+          </VoiceItem>
         ))}
-      </ul>
-    </div>
+      </VoiceList>
+    </SidebarContainer>
   )
 }
 
