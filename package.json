@@ -9,7 +9,7 @@
     "server": "nodemon backend/src/index.js",
     "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\" -n \"SERVER,CLIENT\" -c \"bgBlue.bold,bgMagenta.bold\" \"npm:server\" \"npm:client\"",
     "build": "npm run build --prefix frontend",
-    "install-all": "npm install && npm install --prefix frontend && npm install --prefix backend"
+    "install-all": "npm install && npm install --prefix frontend"
   },
   "type": "module",
   "author": "",
