@@ -10,7 +10,7 @@ app.use(cors())
 app.use(express.json())
 
 app.use('/voice', voiceRoutes)
-app.use('/songs', geniusRoutes)
+app.use('/genius', geniusRoutes)
 app.use('/gemini', scriptRoute)
 app.listen(port, () => {
   console.log(`check this out at http://localhost:${port}`)

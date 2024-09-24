@@ -18,7 +18,6 @@ const generationConfig = {
   topP: 0.95,
   topK: 64,
   maxOutputTokens: 8192,
-  responseMimeType: 'application/json',
 }
 
 export const analyzeSongController = async (req, res) => {
@@ -26,16 +25,14 @@ export const analyzeSongController = async (req, res) => {
     const songLyrics = req.body.lyrics
     const chatSession = model.startChat({
       generationConfig,
-      history: [
-        {
-          role: 'user',
-          parts: [{ text: `tell me about this song:${songLyrics}` }],
-        },
-      ],
+      history: [],
     })
 
-    const result = await chatSession.sendMessage('INSERT_INPUT_HERE')
+    const result = await chatSession.sendMessage(
+      `Analyze this song: ${songLyrics}`,
+    )
     const review = result.response.text()
+
     res.status(200).json({ review })
   } catch (error) {
     console.error('Error occurred:', error)

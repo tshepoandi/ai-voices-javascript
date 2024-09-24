@@ -22,7 +22,7 @@ export const searchController = async (req, res) => {
 
 export const getSongController = async (req, res) => {
   try {
-    const searches = await Client.songs.search(req.body.post)
+    const searches = await Client.songs.search(req.body.songId)
     const songMatchingID = searches[0]
     console.log(songMatchingID)
     const lyrics = await songMatchingID.lyrics()
