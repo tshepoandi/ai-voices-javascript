@@ -91,7 +91,7 @@ const Menu = () => {
             type="search"
             placeholder="Search..."
             value={searchText}
-            // onChange={handleSearchChange}
+            onChange={handleSearchChange}
           />
           <SearchButton type="submit">Search</SearchButton>
         </form>

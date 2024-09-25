@@ -22,13 +22,51 @@ export const searchController = async (req, res) => {
 
 export const getSongController = async (req, res) => {
   try {
-    const searches = await Client.songs.search(req.body.songId)
+    const { songId } = req.body
+
+    if (!songId) {
+      console.log('Missing songId in request body')
+      return res
+        .status(400)
+        .json({ error: 'songId is required in the request body' })
+    }
+
+    console.log(`Searching for song with ID: ${songId}`)
+    const searches = await Client.songs.search(songId)
+
+    if (!searches || searches.length === 0) {
+      console.log(`No songs found for ID: ${songId}`)
+      return res.status(404).json({ error: 'No songs found' })
+    }
+
     const songMatchingID = searches[0]
-    console.log(songMatchingID)
+    console.log(
+      `Found song: ${songMatchingID.title} by ${songMatchingID.artist.name}`,
+    )
+
     const lyrics = await songMatchingID.lyrics()
+
+    if (!lyrics) {
+      console.log(`No lyrics found for song: ${songMatchingID.title}`)
+      return res.status(404).json({ error: 'No lyrics found for this song' })
+    }
+
+    console.log('Successfully retrieved lyrics')
     res.status(200).json({ lyrics })
   } catch (error) {
-    console.log(error)
-    res.status(500).json({ error: 'Internal server error' })
+    console.error('Error in getSongController:', error)
+
+    if (error instanceof TypeError) {
+      return res.status(400).json({ error: 'Invalid input or API response' })
+    }
+
+    if (error.name === 'InvalidTypeError') {
+      return res.status(400).json({ error: 'Invalid search query type' })
+    }
+
+    res.status(500).json({
+      error: 'Internal server error',
+      message: error.message,
+    })
   }
 }
