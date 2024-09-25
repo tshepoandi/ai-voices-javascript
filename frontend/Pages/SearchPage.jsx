@@ -103,6 +103,8 @@ const SearchButton = styled.button`
   }
 `
 
+const Button = styled.button``
+
 const SearchResultsGrid = () => {
   const [searchData, setSearchData] = useState([])
   const [searchTerm, setSearchTerm] = useState('')
@@ -159,6 +161,7 @@ const SearchResultsGrid = () => {
             <Thumbnail src={item.thumbnail} alt={item.title} />
             <Title>{item.title}</Title>
             <Artist>{item.artist}</Artist>
+            <Button>Download</Button>
           </GridItem>
         ))}
       </GridContainer>
