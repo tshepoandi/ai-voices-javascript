@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import { useState, useEffect } from 'react'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
 const GridContainer = styled.div`
   display: grid;
@@ -109,9 +110,14 @@ const SearchResultsGrid = () => {
   const [searchData, setSearchData] = useState([])
   const [searchTerm, setSearchTerm] = useState('')
   const [inputValue, setInputValue] = useState('')
+  const navigate = useNavigate()
 
   const handleInputChange = (event) => {
     setInputValue(event.target.value)
+  }
+
+  const handleDownloadClick = () => {
+    navigate('/download')
   }
 
   const handleSubmit = (event) => {
@@ -161,7 +167,7 @@ const SearchResultsGrid = () => {
             <Thumbnail src={item.thumbnail} alt={item.title} />
             <Title>{item.title}</Title>
             <Artist>{item.artist}</Artist>
-            <Button>Download</Button>
+            <Button onCLick={handleDownloadClick}>Download</Button>
           </GridItem>
         ))}
       </GridContainer>
