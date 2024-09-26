@@ -148,7 +148,7 @@ const SearchResultsGrid = () => {
   return (
     <div>
       <MenuContainer>
-        <AppName>shakira</AppName>
+        <AppName>atari</AppName>
         <SearchContainer>
           <SearchForm onSubmit={handleSubmit}>
             <SearchBar
