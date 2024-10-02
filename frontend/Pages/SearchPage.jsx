@@ -4,7 +4,7 @@ import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import Sidebar from '../Components/Sidebar'
 import { useDispatch } from 'react-redux'
-import { setSelectedSong } from './songSlice'
+import { setSelectedSong } from '../src/features/songRetriever/SongSlice'
 
 const GridContainer = styled.div`
   display: grid;
