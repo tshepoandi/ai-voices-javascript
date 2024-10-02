@@ -3,6 +3,8 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import Sidebar from '../Components/Sidebar'
+import { useDispatch } from 'react-redux'
+import { setSelectedSong } from './songSlice'
 
 const GridContainer = styled.div`
   display: grid;
@@ -112,12 +114,14 @@ const SearchResultsGrid = () => {
   const [searchTerm, setSearchTerm] = useState('')
   const [inputValue, setInputValue] = useState('')
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   const handleInputChange = (event) => {
     setInputValue(event.target.value)
   }
 
-  const handleDownloadClick = () => {
+  const handleDownloadClick = (song) => {
+    dispatch(setSelectedSong(song))
     navigate('/download')
   }
 
@@ -169,7 +173,7 @@ const SearchResultsGrid = () => {
             <Thumbnail src={item.thumbnail} alt={item.title} />
             <Title>{item.title}</Title>
             <Artist>{item.artist}</Artist>
-            <Button onCLick={handleDownloadClick}>Download</Button>
+            <Button onClick={() => handleDownloadClick(item)}>Download</Button>
           </GridItem>
         ))}
       </GridContainer>
