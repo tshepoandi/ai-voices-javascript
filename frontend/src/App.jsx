@@ -1,6 +1,6 @@
 // import Menu from '../Components/Navbar'
 // import Menu from '../Components/Navbar'
-import Sidebar from '../Components/Sidebar'
+// import Sidebar from '../Components/Sidebar'
 // import SearchPage from '../Layout/Layout'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import SearchResultsGrid from '../Pages/SearchPage'
@@ -12,7 +12,7 @@ import DownloadSection from '../Pages/DownloadSection'
 function App() {
   return (
     <BrowserRouter>
-      <Sidebar />
+      {/* <Sidebar /> */}
       <Routes>
         <Route path="/" element={<SearchResultsGrid />} />
         <Route path="/download" element={<DownloadSection />} />

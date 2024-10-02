@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import Sidebar from '../Components/Sidebar'
 
 const GridContainer = styled.div`
   display: grid;
@@ -149,6 +150,7 @@ const SearchResultsGrid = () => {
     <div>
       <MenuContainer>
         <AppName>atari</AppName>
+        <Sidebar />
         <SearchContainer>
           <SearchForm onSubmit={handleSubmit}>
             <SearchBar
