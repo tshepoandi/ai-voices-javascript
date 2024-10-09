@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useSelector } from 'react-redux'
 import axios from 'axios'
 import styled from 'styled-components'
 
@@ -27,11 +28,17 @@ const StatusMessage = styled.p`
   margin-top: 10px;
 `
 
-const DownloadButton = ({ lyrics, voiceId }) => {
+const DownloadButton = ({ voiceId }) => {
   const [isLoading, setIsLoading] = useState(false)
   const [status, setStatus] = useState('')
+  const lyrics = useSelector((state) => state.lyrics.lyrics)
 
   const handleDownload = async () => {
+    if (!lyrics) {
+      setStatus('No lyrics available to generate audio.')
+      return
+    }
+
     setIsLoading(true)
     setStatus('Generating script...')
 
@@ -80,7 +87,7 @@ const DownloadButton = ({ lyrics, voiceId }) => {
 
   return (
     <div>
-      <Button onClick={handleDownload} disabled={isLoading}>
+      <Button onClick={handleDownload} disabled={isLoading || !lyrics}>
         {isLoading ? 'Processing...' : 'Download Audio'}
       </Button>
       {status && <StatusMessage>{status}</StatusMessage>}

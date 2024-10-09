@@ -12,7 +12,6 @@ import DownloadSection from '../Pages/DownloadSection'
 function App() {
   return (
     <BrowserRouter>
-      {/* <Sidebar /> */}
       <Routes>
         <Route path="/" element={<SearchResultsGrid />} />
         <Route path="/download" element={<DownloadSection />} />
