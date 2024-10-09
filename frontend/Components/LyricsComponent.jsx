@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import axios from 'axios'
 import styled from 'styled-components'
+import DownloadButton from './DownloadButton'
 
 const Container = styled.div`
   min-height: 100vh;
@@ -47,12 +49,12 @@ const ErrorMessage = styled.div`
 `
 
 const LyricsDisplay = ({ artist, title }) => {
-  const [lyrics, setLyrics] = useState('')
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
+  const dispatch = useDispatch()
+  const { lyrics, loading, error } = useSelector((state) => state.lyrics)
 
   useEffect(() => {
     const fetchLyrics = async () => {
+      dispatch({ type: 'FETCH_LYRICS_START' })
       try {
         const response = await axios.post(
           'http://localhost:3000/genius/get-song',
@@ -60,16 +62,20 @@ const LyricsDisplay = ({ artist, title }) => {
             songId: `${title} ${artist}`,
           },
         )
-        setLyrics(response.data.lyrics)
-        setLoading(false)
+        dispatch({
+          type: 'FETCH_LYRICS_SUCCESS',
+          payload: response.data.lyrics,
+        })
       } catch (err) {
-        setError('Failed to fetch lyrics')
-        setLoading(false)
+        dispatch({
+          type: 'FETCH_LYRICS_FAILURE',
+          payload: 'Failed to fetch lyrics',
+        })
       }
     }
 
     fetchLyrics()
-  }, [artist, title])
+  }, [artist, title, dispatch])
 
   if (loading) return <LoadingMessage>Loading...</LoadingMessage>
   if (error) return <ErrorMessage>{error}</ErrorMessage>
@@ -82,6 +88,7 @@ const LyricsDisplay = ({ artist, title }) => {
           <SongTitle>{title}</SongTitle>
           <ArtistName>Artist: {artist}</ArtistName>
           <LyricsContainer>{lyrics}</LyricsContainer>
+          <DownloadButton voiceId="your_default_voice_id" />
         </div>
       )}
     </Container>
