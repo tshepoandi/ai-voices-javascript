@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import styled from 'styled-components'
 import axios from 'axios'
 
@@ -60,6 +60,7 @@ const Menu = () => {
   const [searchText, setSearchText] = useState('')
 
   const handleSearchChange = (event) => {
+    console.log(event.target.value)
     setSearchText(event.target.value)
   }
 
