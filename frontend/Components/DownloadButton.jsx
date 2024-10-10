@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { useSelector } from 'react-redux'
 import axios from 'axios'
 import styled from 'styled-components'
@@ -28,6 +28,7 @@ const StatusMessage = styled.p`
   margin-top: 10px;
 `
 
+// eslint-disable-next-line react/prop-types
 const DownloadButton = ({ voiceId }) => {
   const [isLoading, setIsLoading] = useState(false)
   const [status, setStatus] = useState('')
