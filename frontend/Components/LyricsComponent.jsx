@@ -38,6 +38,7 @@ const LyricsContainer = styled.pre`
   border: 1px solid #10b981;
   overflow: auto;
   max-height: 70vh;
+  margin-bottom: 24px;
 `
 
 const LoadingMessage = styled.div`
@@ -57,7 +58,7 @@ const LyricsDisplay = ({ artist, title }) => {
       dispatch({ type: 'FETCH_LYRICS_START' })
       try {
         const response = await axios.post(
-          'http://localhost:3000/genius/get-song',
+          'https://ai-voices-javascript.onrender.com/genius/get-song',
           {
             songId: `${title} ${artist}`,
           },
@@ -82,7 +83,6 @@ const LyricsDisplay = ({ artist, title }) => {
 
   return (
     <Container>
-      <Title>Lyrics Display</Title>
       {lyrics && (
         <div>
           <SongTitle>{title}</SongTitle>
