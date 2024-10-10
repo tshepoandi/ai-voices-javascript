@@ -88,7 +88,7 @@ const LyricsDisplay = ({ artist, title }) => {
           <SongTitle>{title}</SongTitle>
           <ArtistName>Artist: {artist}</ArtistName>
           <LyricsContainer>{lyrics}</LyricsContainer>
-          <DownloadButton voiceId="EXAVITQu4vr4xnSDxMaL" />
+          <DownloadButton voiceId="FGY2WhTYpPnrIDTdsKH5" />
         </div>
       )}
     </Container>

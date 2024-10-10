@@ -13,6 +13,25 @@ app.use('/voice', voiceRoutes)
 app.use('/genius', geniusRoutes)
 app.use('/gemini', scriptRoute)
 
+app.get('/download', (req, res) => {
+  const filePath = req.query.file
+  const fullPath = path.join(__dirname, filePath)
+
+  fs.access(fullPath, fs.constants.F_OK, (err) => {
+    if (err) {
+      console.error('File does not exist')
+      return res.status(404).send('File not found')
+    }
+
+    res.download(fullPath, (err) => {
+      if (err) {
+        console.error('Error downloading file:', err)
+        res.status(500).send('Could not download the file')
+      }
+    })
+  })
+})
+
 app.listen(port, () => {
   console.log(`check this out at http://localhost:${port}`)
 })

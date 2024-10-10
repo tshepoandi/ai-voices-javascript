@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import axios from 'axios'
 import styled from 'styled-components'
@@ -28,7 +28,6 @@ const StatusMessage = styled.p`
   margin-top: 10px;
 `
 
-// eslint-disable-next-line react/prop-types
 const DownloadButton = ({ voiceId }) => {
   const [isLoading, setIsLoading] = useState(false)
   const [status, setStatus] = useState('')
@@ -58,19 +57,30 @@ const DownloadButton = ({ voiceId }) => {
 
       // Step 2: Generate audio
       const audioResponse = await axios.post(
-        'https://ai-voices-javascript.onrender.com/voice/text-to-speech',
+        'http://localhost:3000/voice/text-to-speech',
         {
           text: script,
           voiceId: voiceId,
-          outputPath: 'temp_audio.mp3', // This will be ignored as we're not saving to local filesystem
+          outputPath: 'temp_audio.mp3',
         },
         {
-          responseType: 'blob', // Important: This tells axios to treat the response as binary data
+          responseType: 'json', // Change this to 'json' to receive the file path
         },
       )
 
-      // Step 3: Create a download link
-      const url = window.URL.createObjectURL(new Blob([audioResponse.data]))
+      // Step 3: Download the generated audio file
+      const filePath = audioResponse.data.filePath // Assuming your backend returns the file path
+      setStatus('Downloading audio...')
+
+      const downloadResponse = await axios.get(
+        `http://localhost:3000/download?file=${filePath}`,
+        {
+          responseType: 'blob',
+        },
+      )
+
+      // Step 4: Create a download link
+      const url = window.URL.createObjectURL(new Blob([downloadResponse.data]))
       const link = document.createElement('a')
       link.href = url
       link.setAttribute('download', 'generated_audio.mp3')
@@ -81,7 +91,7 @@ const DownloadButton = ({ voiceId }) => {
       setStatus('Audio downloaded successfully!')
     } catch (error) {
       console.error('Error:', error)
-      setStatus('Failed to generate audio. Please try again.')
+      setStatus('Failed to generate or download audio. Please try again.')
     } finally {
       setIsLoading(false)
     }
