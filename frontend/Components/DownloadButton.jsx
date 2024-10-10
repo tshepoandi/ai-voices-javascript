@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { useSelector } from 'react-redux'
 import axios from 'axios'
 import styled from 'styled-components'
@@ -28,6 +28,7 @@ const StatusMessage = styled.p`
   margin-top: 10px;
 `
 
+// eslint-disable-next-line react/prop-types
 const DownloadButton = ({ voiceId }) => {
   const [isLoading, setIsLoading] = useState(false)
   const [status, setStatus] = useState('')
@@ -51,12 +52,13 @@ const DownloadButton = ({ voiceId }) => {
         },
       )
       const script = scriptResponse.data.review
+      console.log(script)
 
       setStatus('Generating audio...')
 
       // Step 2: Generate audio
       const audioResponse = await axios.post(
-        '/api/eleven-labs/text-to-speech',
+        'https://ai-voices-javascript.onrender.com/voice/text-to-speech',
         {
           text: script,
           voiceId: voiceId,

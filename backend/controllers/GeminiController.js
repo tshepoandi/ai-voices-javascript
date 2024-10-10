@@ -38,6 +38,24 @@ Interactive! I'm all about getting you to share your takes too
 The Endgame:
 I'm here to make your playlist more awesome, your music convos more fun, and your appreciation for songs deeper. Let's turn up the volume on your music experience together! 🔊💖
 Ready to dive into some tunes? Hit me with a track, and let's break it down! 🎶👇`,
+  safetySettings: [
+    {
+      category: 'HARM_CATEGORY_HARASSMENT',
+      threshold: 'BLOCK_NONE',
+    },
+    {
+      category: 'HARM_CATEGORY_HATE_SPEECH',
+      threshold: 'BLOCK_NONE',
+    },
+    {
+      category: 'HARM_CATEGORY_SEXUALLY_EXPLICIT',
+      threshold: 'BLOCK_NONE',
+    },
+    {
+      category: 'HARM_CATEGORY_DANGEROUS_CONTENT',
+      threshold: 'BLOCK_NONE',
+    },
+  ],
 })
 
 const generationConfig = {
