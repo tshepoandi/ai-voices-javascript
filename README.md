@@ -1,6 +1,5 @@
-Here is an improved documentation for your ElevenLabs Text-to-Speech API integration:
-
 ElevenLabs Text-to-Speech API Integration
+
 Table of Contents
 Project Overview
 Project Structure

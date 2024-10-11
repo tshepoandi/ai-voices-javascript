@@ -57,24 +57,17 @@ const DownloadButton = ({ voiceId }) => {
       setStatus('Generating audio...')
 
       // Step 2: Generate audio
-      const audioResponse = await axios.post(
-        'http://localhost:3000/voice/text-to-speech',
-        {
-          text: script,
-          voiceId: voiceId,
-          outputPath: 'temp_audio.mp3',
-        },
-        {
-          responseType: 'json', // Change this to 'json' to receive the file path
-        },
-      )
+      await axios.post('http://localhost:3000/voice/text-to-speech', {
+        text: script,
+        voiceId: voiceId,
+        outputPath: 'temp_audio.mp3',
+      })
 
       // Step 3: Download the generated audio file
-      const filePath = audioResponse.data.filePath // Assuming your backend returns the file path
       setStatus('Downloading audio...')
 
       const downloadResponse = await axios.get(
-        `http://localhost:3000/download?file=${filePath}`,
+        'http://localhost:3000/download?file=temp_audio.mp3',
         {
           responseType: 'blob',
         },

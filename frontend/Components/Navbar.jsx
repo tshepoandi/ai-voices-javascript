@@ -78,7 +78,7 @@ const Menu = () => {
 
   return (
     <MenuContainer>
-      <AppName>shakira</AppName>
+      <AppName>kira</AppName>
       <SearchContainer>
         <form
           onSubmit={handleSearchSubmit}
