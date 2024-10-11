@@ -44,7 +44,6 @@ const DownloadButton = ({ voiceId }) => {
     setStatus('Generating script...')
 
     try {
-      // Step 1: Generate script
       const scriptResponse = await axios.post(
         'https://ai-voices-javascript.onrender.com/gemini/script',
         {
@@ -56,18 +55,20 @@ const DownloadButton = ({ voiceId }) => {
 
       setStatus('Generating audio...')
 
-      // Step 2: Generate audio
-      await axios.post('http://localhost:3000/voice/text-to-speech', {
-        text: script,
-        voiceId: voiceId,
-        outputPath: 'temp_audio.mp3',
-      })
+      await axios.post(
+        'https://ai-voices-javascript.onrender.com//voice/text-to-speech',
+        {
+          text: script,
+          voiceId: voiceId,
+          outputPath: 'temp_audio.mp3',
+        },
+      )
 
       // Step 3: Download the generated audio file
       setStatus('Downloading audio...')
 
       const downloadResponse = await axios.get(
-        'http://localhost:3000/download?file=temp_audio.mp3',
+        'https://ai-voices-javascript.onrender.com/download?file=temp_audio.mp3',
         {
           responseType: 'blob',
         },

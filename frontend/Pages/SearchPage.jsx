@@ -74,50 +74,35 @@ const SearchForm = styled.form`
 `
 
 const SearchBar = styled.input`
-  background-color: #000; /* black background */
-  border: 1px solid #fff; /* white line */
-  border-radius: 20px; /* fully rounded */
-  padding: 0.5rem 2.5rem 0.5rem 1rem;
+  background-color: #000;
+  border: 1px solid #fff;
+  border-radius: 20px;
+  padding: 0.5rem 1rem;
   font-size: 1rem;
-  color: #34c759; /* green text */
+  color: #34c759;
   width: 100%;
   &:focus {
     outline: none;
     box-shadow: 0 0 0 2px #34c759;
   }
   &::placeholder {
-    color: #34c759; /* green placeholder text */
+    color: #34c759;
     opacity: 0.7;
   }
 `
 
-const SearchButton = styled.button`
-  background-color: transparent; /* transparent background */
-  border: none;
-  padding: 0.5rem;
-  font-size: 1rem;
-  color: #34c759; /* green text */
-  cursor: pointer;
-  position: absolute;
-  right: 5px;
-  top: 50%;
-  transform: translateY(-50%);
-  &:hover {
-    color: #2aa147; /* darker green on hover */
-  }
-`
+// Remove the SearchButton styled component
 
 const Button = styled.button``
 
 const SearchResultsGrid = () => {
   const [searchData, setSearchData] = useState([])
   const [searchTerm, setSearchTerm] = useState('')
-  const [inputValue, setInputValue] = useState('')
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
   const handleInputChange = (event) => {
-    setInputValue(event.target.value)
+    setSearchTerm(event.target.value)
   }
 
   const handleDownloadClick = (song) => {
@@ -125,13 +110,13 @@ const SearchResultsGrid = () => {
     navigate('/download')
   }
 
-  const handleSubmit = (event) => {
-    event.preventDefault()
-    setSearchTerm(inputValue)
-  }
-
   useEffect(() => {
     const fetchData = async () => {
+      if (searchTerm.trim() === '') {
+        setSearchData([])
+        return
+      }
+
       try {
         const response = await axios.post(
           'https://ai-voices-javascript.onrender.com/genius/search',
@@ -145,9 +130,11 @@ const SearchResultsGrid = () => {
       }
     }
 
-    if (searchTerm) {
+    const debounceTimer = setTimeout(() => {
       fetchData()
-    }
+    }, 300) // Debounce for 300ms
+
+    return () => clearTimeout(debounceTimer)
   }, [searchTerm])
 
   return (
@@ -156,14 +143,13 @@ const SearchResultsGrid = () => {
         <AppName>atari</AppName>
         <Sidebar />
         <SearchContainer>
-          <SearchForm onSubmit={handleSubmit}>
+          <SearchForm>
             <SearchBar
               type="search"
               placeholder="Search..."
-              value={inputValue}
+              value={searchTerm}
               onChange={handleInputChange}
             />
-            <SearchButton type="submit">Search</SearchButton>
           </SearchForm>
         </SearchContainer>
       </MenuContainer>
