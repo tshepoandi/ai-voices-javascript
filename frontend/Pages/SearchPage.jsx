@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import Sidebar from '../Components/Sidebar'
@@ -74,35 +74,71 @@ const SearchForm = styled.form`
 `
 
 const SearchBar = styled.input`
-  background-color: #000;
-  border: 1px solid #fff;
-  border-radius: 20px;
-  padding: 0.5rem 1rem;
+  background-color: #000; /* black background */
+  border: 1px solid #fff; /* white line */
+  border-radius: 20px; /* fully rounded */
+  padding: 0.5rem 2.5rem 0.5rem 1rem;
   font-size: 1rem;
-  color: #34c759;
+  color: #34c759; /* green text */
   width: 100%;
   &:focus {
     outline: none;
     box-shadow: 0 0 0 2px #34c759;
   }
   &::placeholder {
-    color: #34c759;
+    color: #34c759; /* green placeholder text */
     opacity: 0.7;
   }
 `
 
-// Remove the SearchButton styled component
+const SearchButton = styled.button`
+  background-color: transparent; /* transparent background */
+  border: none;
+  padding: 0.5rem;
+  font-size: 1rem;
+  color: #34c759; /* green text */
+  cursor: pointer;
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  &:hover {
+    color: #2aa147; /* darker green on hover */
+  }
+`
 
+const Modal = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+`
+
+const ModalContent = styled.div`
+  background-color: #000;
+  padding: 2rem;
+  border-radius: 8px;
+  color: #34c759;
+  font-size: 1.5rem;
+`
 const Button = styled.button``
 
 const SearchResultsGrid = () => {
   const [searchData, setSearchData] = useState([])
   const [searchTerm, setSearchTerm] = useState('')
+  const [inputValue, setInputValue] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
   const handleInputChange = (event) => {
-    setSearchTerm(event.target.value)
+    setInputValue(event.target.value)
   }
 
   const handleDownloadClick = (song) => {
@@ -110,46 +146,44 @@ const SearchResultsGrid = () => {
     navigate('/download')
   }
 
-  useEffect(() => {
-    const fetchData = async () => {
-      if (searchTerm.trim() === '') {
-        setSearchData([])
-        return
-      }
-
-      try {
-        const response = await axios.post(
-          'https://ai-voices-javascript.onrender.com/genius/search',
-          {
-            search: searchTerm,
-          },
-        )
-        setSearchData(response.data)
-      } catch (error) {
-        console.error('Error fetching data: ', error)
-      }
+  const handleSubmit = async (event) => {
+    event.preventDefault()
+    setSearchTerm(inputValue)
+    setIsLoading(true)
+    try {
+      const response = await axios.post(
+        'https://ai-voices-javascript.onrender.com/genius/search',
+        {
+          search: inputValue,
+        },
+      )
+      setSearchData(response.data)
+    } catch (error) {
+      console.error('Error fetching data: ', error)
+    } finally {
+      setIsLoading(false)
     }
-
-    const debounceTimer = setTimeout(() => {
-      fetchData()
-    }, 300) // Debounce for 300ms
-
-    return () => clearTimeout(debounceTimer)
-  }, [searchTerm])
+  }
 
   return (
     <div>
+      {isLoading && (
+        <Modal>
+          <ModalContent>Loading...</ModalContent>
+        </Modal>
+      )}
       <MenuContainer>
         <AppName>atari</AppName>
         <Sidebar />
         <SearchContainer>
-          <SearchForm>
+          <SearchForm onSubmit={handleSubmit}>
             <SearchBar
               type="search"
               placeholder="Search..."
-              value={searchTerm}
+              value={inputValue}
               onChange={handleInputChange}
             />
+            <SearchButton type="submit">Search</SearchButton>
           </SearchForm>
         </SearchContainer>
       </MenuContainer>
